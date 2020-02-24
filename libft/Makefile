@@ -6,7 +6,7 @@
 #    By: sreyne <sreyne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/06 18:37:53 by lhaired           #+#    #+#              #
-#    Updated: 2020/02/23 20:32:20 by sreyne           ###   ########.fr        #
+#    Updated: 2020/02/24 17:04:54 by sreyne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC=gcc
 FLAGS= -Wall -Werror -Wextra
 NAME = libft.a
 
-# SRC_DIR=src
+SRC_DIR=src
 SRC = ft_atoi.c ft_bzero.c ft_dup.c ft_isalnum.c ft_isalpha.c ft_isascii.c\
 ft_isdigit.c ft_ispace.c ft_isprint.c ft_itoa.c ft_lstadd.c ft_lstdel.c\
 ft_lstdelone.c ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_memalloc.c\
@@ -27,9 +27,10 @@ ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c\
 ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c\
 ft_strtrim.c ft_tolower.c ft_toupper.c ft_wdcounter.c get_next_line.c\
 
-# SRCD=$(addprefix $(SRC_DIR)/,$(SRCS))
+SRCD=$(addprefix $(SRC_DIR)/,$(SRC))
 
 INCLUDES=./inc/libft.h
+INC = inc
 OBJ_DIR=obj
 OBJ=$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
@@ -39,9 +40,9 @@ $(NAME): $(OBJ)
 	@ar rcs $@ $^
 	@ranlib $@
 
-$(OBJ_DIR)/%.o: %.c $(INCLUDES)
-	@mkdir -p obj
-	@$(CC) $(FLAGS) -o $@ -c $<
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) -c $(FLAGS) -I $(INC) $< -o  $@ 
 
 clean:
 	@rm -rf $(OBJ)
@@ -52,20 +53,3 @@ fclean: clean
 
 re: fclean all
 
-
-
-
-# all: $(NAME)
-
-# $(NAME): $(OBJD)
-# 		gcc $(FLAGS) $(OPTION)
-# 		ar rc $(NAME) $(OBJD)
-# 		ranlib $(NAME)
-
-# clean:
-# 		rm -f $(OBJD)
-
-# fclean: clean
-# 		rm -f $(NAME)
-
-# re: fclean all

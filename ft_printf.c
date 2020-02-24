@@ -1,47 +1,56 @@
 # include "ft_printf.h"
 
-int  initializ(const char *format, va_list *arg, t_tab *tab, int i, int n)
+void	form_initial(t_tab *tab)
 {
-    int     j;
+	tab->i = "0";
+	tab->type = "0";
+	tab->hash = "0";
+	tab->minus_zero = "0";
+	tab->plus_space = "0";
 
-    j = 0;
-	while (format[j] != '\0')
-	{
-		if (format[j] == '%')
-			n++;
-		j++;
-	}
-	if (n == 0)
-	{
-		ft_putstr(format);
-		tab->len = ft_strlen(format);
-		return (tab->len);
-	}
-	else if (n == 2)
-	{
-		ft_putstr("%\n");
-		return (1);
-	}
-	// else
-	// {
-	// 	parse(format, arg);
-	// }
 }
+
+int		initializ(const char *format, va_list *arg)
+{
+	t_tab		*tab;
+	size_t		size;
+
+	size = 0;
+	tab = form_initial(tab);
+	while (format[tab->i])
+	{
+		if (format[tab->i] == '{' && format[tab->i + 1] != '%')
+			tab->i += color(&format[tab->i + 1]);
+		if (format[tab->i] == '%')
+		{
+			tab->i++;
+			form_parser(format, tab, arg);
+			size += print_arg(tab, tab->type, arg);
+			form_clean(tab);
+			if (format[param->i++] == '\0')
+				break;
+		}
+		else
+			size += write(1, &format[tab->i++], 1);
+	}
+	free(tab);
+	return (size);	
+}
+
+
 
 int     ft_printf(const char *format, ...)
 {
    	va_list		arg;
-	t_tab		*tab;
-	int			n;
 	int			i;
 
-	n = 0;
 	i = 0;
-	if (!(tab = (t_tab*)malloc(sizeof(tab))))
-		return (n);
+	if (!format)
+		return (-1);
 	va_start(arg, format);
-	n = initializ(format, &arg, tab, i, n);
+	if (format[0] == '%' && format[1] == '\0')
+		return (0);
+	i = initializ(format, arg);
 	va_end(arg);
-	free(tab);
-	return (n);
+	return (i);
 }
