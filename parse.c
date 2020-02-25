@@ -12,7 +12,7 @@ void    flag_pars(const char *format, t_tab *tab)
 {
     size_t n;
 
-    n = tab->i;
+    n = tab->n;
     while (format[n] == '-' || format[n] == '+' || format[n] == ' ' ||
             format[n] == '#' || format[n] == '0')
     {
@@ -24,7 +24,7 @@ void    flag_pars(const char *format, t_tab *tab)
         else if ((format[n] == '+' || format[n] == ' ') 
                 && tab->plus_space == '+')
             tab->plus_space = format[n];
-        n = ++param->n;
+        n = ++tab->n;
     }
     
 }

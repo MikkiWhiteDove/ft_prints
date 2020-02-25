@@ -13,6 +13,10 @@ typedef struct  s_tab
     char        *format;
 	int         len;
     va_list     arg;
+    unsigned char   hash;
+    unsigned char   minus_zero;
+    unsigned char   plus_space;
+    int             n;    
 }               t_tab;
 
 
