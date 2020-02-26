@@ -16,10 +16,13 @@ typedef struct  s_tab
     unsigned char   hash;
     unsigned char   minus_zero;
     unsigned char   plus_space;
-    int             n;    
+    unsigned char   type;
+    int             i;
+    int             width;
 }               t_tab;
 
 
-int                 ft_printf(const char *format, ...);
+int             ft_printf(const char *format, ...);
+void            form_parser(const char *format, t_tab *tab, va_list arg);
 
 #endif
