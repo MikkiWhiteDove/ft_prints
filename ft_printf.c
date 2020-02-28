@@ -26,8 +26,8 @@ int				initializ(const char *format, va_list *arg)
 		{
 			tab->i++;
 			form_parser(format, tab, arg);
-			// size += print_arg(tab, tab->type, arg);
-			// form_clean(tab);
+			size += print_arg(tab, tab->type, arg);
+			form_clean(tab);
 			if (format[tab->i++] == '\0')
 				break;
 		}

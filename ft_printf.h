@@ -8,21 +8,23 @@
 # include <unistd.h>
 # include <wchar.h>
 
-typedef struct  s_tab
+typedef struct      s_tab
 {
-    char        *format;
-	int         len;
-    va_list     arg;
+    //char        *format;
+	//int         len;
+    va_list         arg;
     unsigned char   hash;
     unsigned char   minus_zero;
     unsigned char   plus_space;
     unsigned char   type;
+    long int        p;
     int             i;
-    int             width;
-}               t_tab;
+    long int        width;
+}                   t_tab;
 
 
 int             ft_printf(const char *format, ...);
-void            form_parser(const char *format, t_tab *tab, va_list arg);
-
+void            form_parser(const char *format, t_tab *tab,\
+va_list arg);
+size_t          print_arg(t_tab tab, char type, va_list arg);
 #endif

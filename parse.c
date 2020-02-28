@@ -6,7 +6,7 @@ void    flag_pars(const char *format, t_tab *tab)
 
     i = tab->i;
     while (format[i] == '-' || format[i] == '+' || format[i] == ' ' ||
-            format[i] == '#' || format[i] == '0')
+            format[i] == '#' || format[i] == '0' || format[i] == '*')
     {
         if (format[i] == '#')
             tab->hash = '#';
@@ -16,32 +16,21 @@ void    flag_pars(const char *format, t_tab *tab)
         else if ((format[i] == '+' || format[i] == ' ') 
                 && tab->plus_space == '+')
             tab->plus_space = format[i];
+		// else if (format[i] == '*')
+			// перескакивает через ширину и сразу проверяет точность
         i = ++tab->i;
     }
     
 }
 
-
-void    form_parser(const char *format, t_tab *tab, va_list arg)
-{
-    flag_pars(format, tab);
-    width_prc_pars(format, tab, arg);
-    size_pars(format, tab);
-    tab->type = format[tab->i];
-}
-
-
-
-
-
-int		check_precision(char *tmp, t_tab *tab)
+int		check_precision(const char *format, t_tab *tab)
 {
 	int		p;
 	p = 0;
-	p = check_width(tmp, tab);
+	p = check_width(format, tab);
 	return (p);
 }
-int		check_width(char *tmp, t_tab *tab)
+int		check_width(const char *format, t_tab *tab)
 {
 	char	*str;
 	int		z;
@@ -50,29 +39,48 @@ int		check_width(char *tmp, t_tab *tab)
 	width = 0;
 	str = NULL;
 	//str = (char*)malloc(sizeof(char) * ft_strlen(tmp));
-	while (tmp[tab->i] >= '0' && tmp[tab->i] <= '9')
+	while (format[tab->i] >= '0' && format[tab->i] <= '9')
 		tab->i++;
-	str = ft_strsub(tmp, z, (tab->i) - z);
+	str = ft_strsub(format, z, (tab->i) - z);
 	width = atoi(str);
 	free(str);
 	return (width);
 }
 
-void	width_prc_pars(const char *tmp, t_tab *tab, va_list *arg)
+void	width_prc_pars(const char *format, t_tab *tab, va_list *arg)
 {
 	tab->p = 0;
 	tab->width = 0;
-	if ((tmp[tab->i] >= '0' && tmp[tab->i] <= '9') || tmp[tab->i] == '.') // чтобы узнать, указана ли ширина
+	if ((format[tab->i] >= '0' && format[tab->i] <= '9') || format[tab->i] == '.') // чтобы узнать, указана ли ширина
 	{
-		if (tmp[tab->i] >= '0' && tmp[tab->i] <= '9')
-			tab->width = check_width(tmp, tab);
-		if (tmp[tab->i] == '.')
+		if (format[tab->i] >= '0' && format[tab->i] <= '9')
+			tab->width = check_width(format, tab);
+		if (format[tab->i] == '.')
 		{
 			tab->i++;
-			tab->p = check_precision(tmp, tab);
+			tab->p = check_precision(format, tab);
 		}
 	}
 }
+
+void	size_pars(format, tab)
+{
+	
+}
+
+void    form_parser(const char *format, t_tab *tab, va_list arg)
+{
+    flag_pars(format, tab);
+    width_prc_pars(format, tab, arg);
+    //size_pars(format, tab);
+    tab->type = format[tab->i];
+}
+
+
+
+
+
+
 
 // int     ft_printf(const char *format, ...)
 // {

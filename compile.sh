@@ -1,1 +1,1 @@
-gcc -Wall -Wextra -Werror ft_printf.c ft_ libft/libft.a
+gcc main.c ft_printf.c parse.c print_arg.c libft/libft.a

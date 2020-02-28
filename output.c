@@ -1,6 +1,6 @@
 // # include "ft_printf.h"
 
-// char	*output_parameter(t_flags *fl, va_list *ap)
+// char	*output_parameter(t_tab *fl, va_list *ap)
 // {
 // 	char *s;
 
