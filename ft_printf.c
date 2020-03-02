@@ -7,6 +7,9 @@ static void		form_initial(t_tab *tab)
 	tab->hash = 0;
 	tab->minus_zero = 0;
 	tab->plus_space = 0;
+	tab->h_fl = 0;
+	tab->l_fl = 0;
+	tab->lb_fl = 0;
 
 }
 

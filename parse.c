@@ -63,16 +63,37 @@ void	width_prc_pars(const char *format, t_tab *tab, va_list *arg)
 	}
 }
 
-void	size_pars(format, tab)
+void	size_pars(const char *format, t_tab *tab)
 {
-	
+	while (format[tab->i] == 'l' )
+	{
+		tab->l_fl++;
+		tab->i++;
+		if (tab->l_fl >= 3)
+			return (1);
+	}
+	while (format[tab->i] == 'h' && tab->l_fl == 0)
+	{
+		tab->h_fl++;
+		tab->i++;
+		if (tab->h_fl >= 3)
+			return (1);
+	}
+	while (format[tab->i == 'L'] && tab->l_fl == 0 && tab->h_fl == 0)
+	{
+		tab->lb_fl++;
+		tab->i++;
+		if (tab->lb_fl >= 2)
+			return (0);
+	}
+	return (0);
 }
 
 void    form_parser(const char *format, t_tab *tab, va_list arg)
 {
     flag_pars(format, tab);
     width_prc_pars(format, tab, arg);
-    //size_pars(format, tab);
+    size_pars(format, tab);
     tab->type = format[tab->i];
 }
 

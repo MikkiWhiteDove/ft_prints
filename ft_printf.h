@@ -19,6 +19,9 @@ typedef struct      s_tab
     unsigned char   type;
     long int        p;
     int             i;
+    unsigned char   l_fl;
+    unsigned char   h_fl;
+    unsigned char   lb_fl;
     long int        width;
 }                   t_tab;
 
