@@ -10,7 +10,8 @@ static void		form_initial(t_tab *tab)
 	tab->h_fl = 0;
 	tab->l_fl = 0;
 	tab->lb_fl = 0;
-
+	tab->precision = -1;
+	tab->filler = ' ';
 }
 
 int				initializ(const char *format, va_list *arg)
@@ -30,6 +31,7 @@ int				initializ(const char *format, va_list *arg)
 			tab->i++;
 			form_parser(format, tab, arg);
 			size += print_arg(tab, tab->type, arg);
+			
 			form_clean(tab);
 			if (format[tab->i++] == '\0')
 				break;

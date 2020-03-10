@@ -1,19 +1,17 @@
 #include "ft_printf.h"
 
-if (tab->i == 'd' || tab->i == 'i' || tab->i == 'u')
-	{
-		if (tab->type == 'd' || tab->type == 'i')
-			ap = va_arg(arg, signed int);
-		else
-			ap = va_arg(arg, unsigned int);
-		ap2 = (char*)malloc(sizeof(char) * tab->tmp_len + 1);
-		ap2 = ft_itoa(ap);
-		tab->tmp = ft_strjoin(tab->tmp, ap2);
-		//printf("arg: %d\n", ap);
-		printf("arg: %s\n", tab->tmp);
-	}
-
-
+// if (tab->i == 'd' || tab->i == 'i' || tab->i == 'u')
+	// {
+	// 	if (tab->type == 'd' || tab->type == 'i')
+	// 		ap = va_arg(arg, signed int);
+	// 	else
+	// 		ap = va_arg(arg, unsigned int);
+	// 	ap2 = (char*)malloc(sizeof(char) * tab->tmp_len + 1);
+	// 	ap2 = ft_itoa(ap);
+	// 	tab->tmp = ft_strjoin(tab->tmp, ap2);
+	// 	//printf("arg: %d\n", ap);
+	// 	printf("arg: %s\n", tab->tmp);
+	// }
 
 
 
@@ -34,6 +32,10 @@ char    *print_int(t_tab *tab, va_list *arg)
         str = ft_itoa((signed char)va_arg(*arg, int));
     else
         str = ft_itoa(va_arg(*arg, int));
+    // str = (char*)malloc(sizeof(char) * tab->len + 1);
+	// str = ft_itoa(tab);
+	// tab->tmp = ft_strjoin(tab->tmp, str);
+    // free(str);
     str = redactor(str, tab);
     return (str);    
 }
