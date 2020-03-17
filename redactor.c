@@ -9,8 +9,7 @@ char		*redactor(char *s, t_tab *tab)
 	if (tab->hash || tab->type == 'p')
 		s = hashtag_redactor(tab->type, s, tab->precision);
 	if (!tab->precision && !ft_strcmp(s, "0") && \
-	(tab->type == 'x' || tab->type == 'o' || tab->type == 'd' || tab->type == 'u') \
-	&& !(tab->hash && tab->type == 'o'))
+	(tab->type == 'x' || tab->type == 'o' || tab->type == 'd' || tab->type == 'u') \ 
 		s[0] = '\0';
 	if (!minus && tab->plus_space == '+' && (tab->type == 'd' || tab->type == 'f'))
 		s = ft_strjoin_free("+", s, 2);
